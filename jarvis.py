@@ -6,6 +6,7 @@ import webbrowser
 import os
 import random
 
+
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 # print(voices[0].id)
@@ -41,6 +42,7 @@ def takeCommand():  # This function will take the command from the microphone(us
         return "None"  # None string will be returned
     return query
 
+
 if __name__ == "__main__":
     wishMe()
     while True:
@@ -54,17 +56,12 @@ if __name__ == "__main__":
             speak("According to Wikipedia")
             speak(results)
 
-        elif 'open youtube' in query:
-            speak("Opening Youtube...")
-            webbrowser.open("youtube.com")
-        
-        elif 'open google' in query:
-            speak("Opening Google...")
-            webbrowser.open("google.com")
-
-        elif 'open github' in query:
-            speak("Opening GitHub...")
-            webbrowser.open("github.com")
+        elif 'open' in query:
+            sites = [["youtube", "https://www.youtube.com"], ["google", "https://google.com"], ["github", "https://github.com"], ["stackoverflow", "https://stackoverflow.com"], ["gmail", "https://mail.google.com"], ["facebook", "https://www.facebook.com"], ["twitter", "https://twitter.com"], ["instagram", "https://www.instagram.com"], ["linkedin", "https://www.linkedin.com"], ["netflix", "https://www.netflix.com"], ["spotify", "https://www.spotify.com"], ["flipkart", "https://www.flipkart.com"], ["amazon", "https://www.amazon.com"], ["myntra", "https://www.myntra.com"], ["zomato", "https://www.zomato.com"], ["swiggy", "https://www.swiggy.com"], ["bird", "https://bard.google.com/chat"], ["dominos", "https://www.dominos.com"]]
+            for site in sites:
+                if f"open {site[0]}" in query:
+                    speak(f"Opening {site[0]}...")
+                    webbrowser.open(site[1])
 
         elif 'play music' in query:
             music_dir = 'C:\\Users\\harsh\\Music'
@@ -78,5 +75,5 @@ if __name__ == "__main__":
             speak(f"The time is {strTime}")
 
         elif 'quit' in query:
-            speak("Quitting... Thank you for using Jarvis, have a nice day!")
+            speak("Thank you for using Jarvis, have a nice day!")
             exit()
