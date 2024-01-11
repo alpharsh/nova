@@ -18,6 +18,8 @@ engine.setProperty('voice', voices[1].id)
 def speak(audio):  # This function will pronounce the string which is passed to it
     engine.say(audio)
     engine.runAndWait()
+    # rate = engine.getProperty('rate')   # getting details of current speaking rate
+    # engine.setProperty('rate', rate-10) # setting up new voice rate
 
 def wishMe():  # This function will wish the user according to the time
     hour = int(datetime.datetime.now().hour)
@@ -66,7 +68,7 @@ if __name__ == "__main__":
                     speak(f"Opening {site[0]}...")
                     webbrowser.open(site[1])
 
-        elif 'play music' in query:
+        elif 'play music' in query or 'play song' in query:
             speak("playing music")
             music_dir = 'C:\\Users\\harsh\\Music'
             songs = os.listdir(music_dir)
@@ -103,6 +105,21 @@ if __name__ == "__main__":
         elif 'sleep system' in query:
             speak("Putting the system to sleep")
             os.system("rundll32.exe powrprof.dll,SetSuspendState 0,1,0")
+
+        elif 'love' in query:
+            speak("I can't feel romantic love, but i think you are wonderful")
+
+        elif 'who are you' in query:
+            speak("I am Nova, your personal assistant, i am here to make your life easier")
+
+        elif 'how are you' in query:
+            speak("I am fine, thank you for asking")
+
+        elif 'who made you' in query:
+            speak("I was made by Harsh and Ayushi, student of computer science and engineering, they are my creators and i am very thankful to them for creating me")
+
+        elif 'what can you do' in query:
+            speak("I can do a lot of things, i can open websites for you, i can play music for you, i can tell you the time, i can tell you jokes, i can tell you your IP Address, i can play songs on YouTube for you, i can put your system to sleep, i can tell you about myself and i can also tell you about my creators")
 
         elif 'thank you' in query:
             speak("Thank you for using Nova, have a nice day!")
