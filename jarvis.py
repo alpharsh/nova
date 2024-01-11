@@ -99,7 +99,10 @@ if __name__ == "__main__":
 
         elif 'joke' in query:
             speak(pyjokes.get_joke())
-            
+
+        elif 'sleep system' in query:
+            speak("Putting the system to sleep")
+            os.system("rundll32.exe powrprof.dll,SetSuspendState 0,1,0")
 
         elif 'thank you' in query:
             speak("Thank you for using Nova, have a nice day!")
