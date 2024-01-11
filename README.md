@@ -1,3 +1,3 @@
-# personalassis
+# Nova Personal Assistant
 
-Personal Assistance made using Python
+Nova is a Python-based personal assistant designed to simplify your daily tasks and enhance your productivity.
