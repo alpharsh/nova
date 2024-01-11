@@ -1,10 +1,13 @@
-import pyttsx3
-import speech_recognition as sr
-import datetime
-import wikipedia
-import webbrowser
+import pyttsx3  # pip install pyttsx3
+import speech_recognition as sr  # pip install speechRecognition
+import datetime  # pip install datetime
+import wikipedia  # pip install wikipedia
+import webbrowser 
 import os
-import random
+import random  # pip install random
+from requests import get
+import pywhatkit as kit  # pip install pywhatkit
+import pyjokes  # pip install pyjokes
 
 
 engine = pyttsx3.init('sapi5')
@@ -64,19 +67,42 @@ if __name__ == "__main__":
                     webbrowser.open(site[1])
 
         elif 'play music' in query:
+            speak("playing music")
             music_dir = 'C:\\Users\\harsh\\Music'
             songs = os.listdir(music_dir)
             # print(songs)
             random_song = random.choice(songs)
-            os.startfile(os.path.join(music_dir, random_song))  # Playing the first song from the list
+            os.startfile(os.path.join(music_dir, random_song))  # Playing the random song from the list
 
         elif 'hello nova' in query:
-            speak("hello i am nova, your personal assistant, how may i help you?")
+            speak("hello, i am nova, your personal assistant, how may i help you?")
 
         elif 'the time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")  # Converting the time into string format
             speak(f"The time is {strTime}")
 
-        elif 'thank you nova' in query:
+        elif 'open notepad' in query:
+            speak("opening notepad")
+            npath = "C:\\Windows\\System32\\notepad.exe"
+            os.startfile(npath) #NOT WORKING
+
+        elif 'ip address' in query:
+            ip = get('https://api.ipify.org').text
+            speak(f"Your IP Address is {ip}")
+
+        elif 'play' in query and 'on youtube' in query:
+            start = query.find('play') + len('play')
+            end = query.find('song on youtube')
+            song_name = query[start:end].strip()  # Extract the song name from the query
+            speak(f"Playing {song_name} on YouTube")
+            kit.playonyt(song_name)
+
+        elif 'joke' in query:
+            speak(pyjokes.get_joke())
+            
+
+        elif 'thank you' in query:
             speak("Thank you for using Nova, have a nice day!")
             exit()
+        
+        # speak("Sir, do you have any other work?")
