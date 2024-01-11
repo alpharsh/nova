@@ -10,7 +10,7 @@ import random
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 # print(voices[0].id)
-engine.setProperty('voice', voices[0].id)
+engine.setProperty('voice', voices[1].id)
 
 def speak(audio):  # This function will pronounce the string which is passed to it
     engine.say(audio)
@@ -24,7 +24,7 @@ def wishMe():  # This function will wish the user according to the time
         speak("Good Afternoon!")
     else:
         speak("Good Evening!")
-    speak("I am Jarvis. How may I help you?")
+    speak("I am Nova. How may I help you?")
 
 def takeCommand():  # This function will take the command from the microphone(user) and return the string output
     r = sr.Recognizer()
@@ -70,10 +70,13 @@ if __name__ == "__main__":
             random_song = random.choice(songs)
             os.startfile(os.path.join(music_dir, random_song))  # Playing the first song from the list
 
+        elif 'hello nova' in query:
+            speak("hello i am nova, your personal assistant, how may i help you?")
+
         elif 'the time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")  # Converting the time into string format
             speak(f"The time is {strTime}")
 
-        elif 'quit' in query:
-            speak("Thank you for using Jarvis, have a nice day!")
+        elif 'thank you nova' in query:
+            speak("Thank you for using Nova, have a nice day!")
             exit()
