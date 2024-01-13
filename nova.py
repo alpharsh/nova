@@ -1,4 +1,6 @@
-import pyttsx3  # pip install pyttsx3
+import operator
+import pyttsx3
+import requests  # pip install pyttsx3
 import speech_recognition as sr  # pip install speechRecognition
 import datetime  # pip install datetime
 import wikipedia  # pip install wikipedia
@@ -92,6 +94,47 @@ if __name__ == "__main__":
             ip = get('https://api.ipify.org').text
             speak(f"Your IP Address is {ip}")
 
+        elif 'where am i' in query or 'where are we' in query:
+            speak("Wait for a second, let me check")
+            try:
+                ipAdd = requests.get('https://api.ipify.org').text
+                print(ipAdd)
+                url = 'https://get.geojs.io/v1/ip/geo/'+ipAdd+'.json'
+                geo_requests = requests.get(url)
+                geo_data = geo_requests.json()
+                city = geo_data['city']
+                country = geo_data['country']
+                speak(f"Currently We are in {city}, city of {country} country")
+            except Exception as e:
+                speak("Sorry, Due to network issue I am not able to find where we are.")
+                pass
+
+        elif 'do some calculations' in query:
+            r = sr.Recognizer()
+            with sr.Microphone() as source:
+                speak("What do you want to calculate, example: 5 plus 5")
+                print("Listening...")
+                r.adjust_for_ambient_noise(source)
+                audio = r.listen(source)
+            my_string = r.recognize_google(audio)
+            print(my_string)
+            def get_operator_fn(op):
+                return {
+                    '+' : operator.add, # plus
+                    '-' : operator.sub, # minus
+                    'x' : operator.mul, # multiplied
+                    'divided' : operator.__truediv__, # divided
+                }[op]
+            def eval_binary_expr(op1, oper, op2): # 5 plus 8
+                op1,op2 = int(op1), int(op2)
+                return get_operator_fn(oper)(op1, op2)
+            try:
+                speak("Your result is")
+                speak(eval_binary_expr(*(my_string.split())))
+            except Exception as e:
+                speak("Sorry, I was unable to perform the calculation.")
+                print(f"Exception: {e}")
+
         elif 'play' in query and 'on youtube' in query:
             start = query.find('play') + len('play')
             end = query.find('song on youtube')
@@ -116,11 +159,11 @@ if __name__ == "__main__":
             speak("I am fine, thank you for asking")
 
         elif 'who made you' in query:
-            speak("I was made by Harsh and Ayushi, student of computer science and engineering, they are my creators and i am very thankful to them for creating me")
+            speak("I was made by Harsh and Aayushi, student of computer science and engineering, they are my creators and i am very thankful to them for creating me")
 
         elif 'what can you do' in query:
             speak("I can do a lot of things, i can open websites for you, i can play music for you, i can tell you the time, i can tell you jokes, i can tell you your IP Address, i can play songs on YouTube for you, i can put your system to sleep, i can tell you about myself and i can also tell you about my creators")
-
+            
         elif 'thank you' in query:
             speak("Thank you for using Nova, have a nice day!")
             exit()
