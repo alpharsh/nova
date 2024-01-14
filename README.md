@@ -2,10 +2,6 @@
 
 Nova is a Python-based personal assistant designed to simplify your daily tasks and enhance your productivity. It uses advanced speech recognition and text-to-speech capabilities to interact with you in a natural, conversational manner.
 
-# Nova Personal Assistant
-
-Nova is a Python-based personal assistant designed to simplify your daily tasks and enhance your productivity. It uses advanced speech recognition and text-to-speech capabilities to interact with you in a natural, conversational manner.
-
 ## Features
 
 * **Speech Recognition**: Nova can understand your spoken commands, thanks to the powerful speech recognition capabilities of the `speech_recognition` library.
