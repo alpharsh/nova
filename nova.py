@@ -10,6 +10,7 @@ import random  # pip install random
 from requests import get
 import pywhatkit as kit  # pip install pywhatkit
 import pyjokes  # pip install pyjokes
+from bs4 import BeautifulSoup  # pip install bs4
 
 
 engine = pyttsx3.init('sapi5')
@@ -64,7 +65,7 @@ if __name__ == "__main__":
             speak(results)
 
         elif 'open' in query:
-            sites = [["youtube", "https://www.youtube.com"], ["google", "https://google.com"], ["github", "https://github.com"], ["stackoverflow", "https://stackoverflow.com"], ["gmail", "https://mail.google.com"], ["facebook", "https://www.facebook.com"], ["twitter", "https://twitter.com"], ["instagram", "https://www.instagram.com"], ["linkedin", "https://www.linkedin.com"], ["netflix", "https://www.netflix.com"], ["spotify", "https://www.spotify.com"], ["flipkart", "https://www.flipkart.com"], ["amazon", "https://www.amazon.com"], ["myntra", "https://www.myntra.com"], ["zomato", "https://www.zomato.com"], ["swiggy", "https://www.swiggy.com"], ["bird", "https://bard.google.com/chat"], ["dominos", "https://www.dominos.com"]]
+            sites = [["youtube", "https://www.youtube.com"], ["google", "https://google.com"], ["github", "https://github.com"], ["stackoverflow", "https://stackoverflow.com"], ["gmail", "https://mail.google.com"], ["facebook", "https://www.facebook.com"], ["twitter", "https://twitter.com"], ["instagram", "https://www.instagram.com"], ["linkedin", "https://www.linkedin.com"], ["netflix", "https://www.netflix.com"], ["spotify", "https://www.spotify.com"], ["flipkart", "https://www.flipkart.com"], ["amazon", "https://www.amazon.com"], ["myntra", "https://www.myntra.com"], ["zomato", "https://www.zomato.com"], ["college erp", "https://student.icampuserp.in/Login.aspx"], ["bird", "https://bard.google.com/chat"]]
             for site in sites:
                 if f"open {site[0]}" in query:
                     speak(f"Opening {site[0]}...")
@@ -94,7 +95,7 @@ if __name__ == "__main__":
             ip = get('https://api.ipify.org').text
             speak(f"Your IP Address is {ip}")
 
-        elif 'where am i' in query or 'where are we' in query:
+        elif 'where am i' in query or 'location' in query:
             speak("Wait for a second, let me check")
             try:
                 ipAdd = requests.get('https://api.ipify.org').text
@@ -109,32 +110,14 @@ if __name__ == "__main__":
                 speak("Sorry, Due to network issue I am not able to find where we are.")
                 pass
 
-        elif 'do some calculations' in query:
-            r = sr.Recognizer()
-            with sr.Microphone() as source:
-                speak("What do you want to calculate, example: 5 plus 5")
-                print("Listening...")
-                r.adjust_for_ambient_noise(source)
-                audio = r.listen(source)
-            my_string = r.recognize_google(audio)
-            print(my_string)
-            def get_operator_fn(op):
-                return {
-                    '+' : operator.add, # plus
-                    '-' : operator.sub, # minus
-                    'x' : operator.mul, # multiplied
-                    'divided' : operator.__truediv__, # divided
-                }[op]
-            def eval_binary_expr(op1, oper, op2): # 5 plus 8
-                op1,op2 = int(op1), int(op2)
-                return get_operator_fn(oper)(op1, op2)
-            try:
-                speak("Your result is")
-                speak(eval_binary_expr(*(my_string.split())))
-            except Exception as e:
-                speak("Sorry, I was unable to perform the calculation.")
-                print(f"Exception: {e}")
-
+        elif 'temperature' in query:
+            search = "temperature in prayaagraaj"
+            url = f"https://www.google.com/search?q={search}"
+            r = requests.get(url)
+            data = BeautifulSoup(r.text, "html.parser")
+            temp = data.find("div", class_="BNeawe").text
+            speak(f"current {search} is {temp}")
+                
         elif 'play' in query and 'on youtube' in query:
             start = query.find('play') + len('play')
             end = query.find('song on youtube')
@@ -152,17 +135,29 @@ if __name__ == "__main__":
         elif 'love' in query:
             speak("I can't feel romantic love, but i think you are wonderful")
 
-        elif 'who are you' in query:
+        elif 'hu r u' in query:
             speak("I am Nova, your personal assistant, i am here to make your life easier")
 
-        elif 'how are you' in query:
-            speak("I am fine, thank you for asking")
+        elif 'how are you' in query or 'how r u' in query:
+            speak("I am fine, Thank you for asking me, what about you? How are you?")
 
-        elif 'who made you' in query:
+        elif 'i am fine' in query:
+            speak("I am glad to hear that you are fine, how may i help you?")
+
+        elif 'i am not fine' in query:
+            speak("Don't worry, everything will be fine soon, just keep smiling and stay happy, ")
+
+        elif 'who made you' in query or 'who created you' in query:
             speak("I was made by Harsh and Aayushi, student of computer science and engineering, they are my creators and i am very thankful to them for creating me")
 
+        elif 'harsh' in query:
+            speak("Harsh is my creator, he is a student of computer science and engineering at United College of Engineering and Research, Prayagraj.")
+
+        elif 'ayushi' in query:
+            speak("ayushi is my creator, she is a student of computer science and engineering at United College of Engineering and Research, Prayagraj.")
+
         elif 'what can you do' in query:
-            speak("I can do a lot of things, i can open websites for you, i can play music for you, i can tell you the time, i can tell you jokes, i can tell you your IP Address, i can play songs on YouTube for you, i can put your system to sleep, i can tell you about myself and i can also tell you about my creators")
+            speak("I can do many things, i can tell you the current time, i can tell you the current weather, i can tell you the current temperature, i can tell you the current location, i can tell you the current ip address, i can tell you a joke, i can play music for you, i can open any website for you, i can search anything on wikipedia for you, i can play anything on youtube for you, i can put your system to sleep, i can tell you about my creators, i can tell you about myself.")
             
         elif 'thank you' in query:
             speak("Thank you for using Nova, have a nice day!")
