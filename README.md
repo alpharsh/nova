@@ -28,6 +28,14 @@ Nova is a Python-based personal assistant designed to simplify your daily tasks 
 
 To use Nova, simply run the main script and start giving commands. Nova will listen to your commands, perform the requested tasks, and provide auditory feedback.
 
+## Contributing
+
+We welcome contributions! If you have an idea for a new feature, bug fixes, or improvements, feel free to open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
 ## Future Enhancements
 
 We're constantly working on improving Nova and adding new features. Future use cases could include more advanced system control, integration with other services and APIs, and improved speech recognition and synthesis. Stay tuned for future updates!
